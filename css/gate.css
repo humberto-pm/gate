@@ -1,0 +1,362 @@
+/* ============================================
+   GATE PAGE - Age Verification Interstitial
+   Dark theme with gold accent
+   ============================================ */
+
+/* Reset & Base */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Main Container */
+.gate-container {
+    width: 100%;
+    max-width: 480px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    justify-content: center;
+}
+
+/* Card */
+.gate-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 40px 32px;
+    width: 100%;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* Header */
+.gate-header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.shield-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #d4af37 0%, #f4d03f 50%, #d4af37 100%);
+    border-radius: 50%;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 20px rgba(212, 175, 55, 0.4);
+}
+
+.shield-icon svg {
+    color: #1a1a2e;
+}
+
+.gate-header h1 {
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0 0 8px 0;
+    color: #ffffff;
+}
+
+.gate-header .subtitle {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0;
+}
+
+/* Captcha Container */
+.captcha-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 24px;
+    min-height: 80px;
+}
+
+.cf-turnstile {
+    margin-bottom: 8px;
+}
+
+.status-indicator {
+    font-size: 12px;
+    height: 20px;
+}
+
+.status-pending {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.status-success {
+    color: #4ade80;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.status-success::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: #4ade80;
+    border-radius: 50%;
+}
+
+/* Age Confirmation Checkbox */
+.age-confirmation {
+    margin-bottom: 24px;
+}
+
+.custom-checkbox {
+    display: flex;
+    align-items: flex-start;
+    cursor: pointer;
+    position: relative;
+    padding-left: 36px;
+    line-height: 1.5;
+}
+
+.custom-checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    position: absolute;
+    left: 0;
+    top: 2px;
+    height: 24px;
+    width: 24px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.custom-checkbox:hover .checkmark {
+    border-color: rgba(212, 175, 55, 0.5);
+}
+
+.custom-checkbox input:checked ~ .checkmark {
+    background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
+    border-color: #d4af37;
+}
+
+.checkmark::after {
+    content: '';
+    position: absolute;
+    display: none;
+    left: 7px;
+    top: 3px;
+    width: 6px;
+    height: 12px;
+    border: solid #1a1a2e;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.custom-checkbox input:checked ~ .checkmark::after {
+    display: block;
+}
+
+.label-text {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.label-text strong {
+    color: #d4af37;
+}
+
+/* Continue Button */
+.continue-btn {
+    width: 100%;
+    padding: 16px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a1a2e;
+    background: linear-gradient(135deg, #d4af37 0%, #f4d03f 50%, #d4af37 100%);
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+}
+
+.continue-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(212, 175, 55, 0.5);
+}
+
+.continue-btn:disabled {
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.3);
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.continue-btn:disabled .btn-arrow {
+    stroke: rgba(255, 255, 255, 0.3);
+}
+
+.btn-arrow {
+    transition: transform 0.3s ease;
+}
+
+.continue-btn:hover:not(:disabled) .btn-arrow {
+    transform: translateX(4px);
+}
+
+/* Responsible Gambling Notice */
+.responsible-gambling {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+}
+
+.warning-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0 0 8px 0;
+}
+
+.warning-text svg {
+    flex-shrink: 0;
+    stroke: #f59e0b;
+}
+
+.helpline {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.5);
+    margin: 0;
+}
+
+.helpline strong {
+    color: #d4af37;
+}
+
+/* Error Message */
+.error-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+    padding: 16px;
+    background: rgba(239, 68, 68, 0.15);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: 10px;
+    color: #fca5a5;
+    font-size: 14px;
+}
+
+.error-message svg {
+    flex-shrink: 0;
+    stroke: #ef4444;
+}
+
+/* Footer */
+.gate-footer {
+    margin-top: 24px;
+    text-align: center;
+}
+
+.gate-footer p {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.4);
+    margin: 0;
+    max-width: 320px;
+}
+
+/* Loading State */
+.loading .continue-btn {
+    position: relative;
+    color: transparent;
+}
+
+.loading .continue-btn::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #1a1a2e;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .gate-container {
+        padding: 16px;
+    }
+
+    .gate-card {
+        padding: 32px 24px;
+    }
+
+    .gate-header h1 {
+        font-size: 20px;
+    }
+
+    .shield-icon {
+        width: 64px;
+        height: 64px;
+    }
+
+    .shield-icon svg {
+        width: 36px;
+        height: 36px;
+    }
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.gate-card {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Turnstile Dark Theme Override */
+.cf-turnstile iframe {
+    border-radius: 8px;
+}

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Age Verification Required</title>
+
+    <!-- Bootstrap 4 CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/gate.css">
+
+    <!-- Cloudflare Turnstile -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+</head>
+<body>
+    <div class="gate-container">
+        <div class="gate-card">
+            <!-- Header -->
+            <div class="gate-header">
+                <div class="shield-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        <path d="M9 12l2 2 4-4"/>
+                    </svg>
+                </div>
+                <h1>Verification Required</h1>
+                <p class="subtitle">Please complete the verification below to continue</p>
+            </div>
+
+            <!-- Captcha Widget -->
+            <div class="captcha-container">
+                <div class="cf-turnstile"
+                     data-sitekey="0x4AAAAAACNCNb3XGAXXWox4"
+                     data-callback="onTurnstileSuccess"
+                     data-theme="dark">
+                </div>
+                <div id="captcha-status" class="status-indicator">
+                    <span class="status-pending">Verifying...</span>
+                </div>
+            </div>
+
+            <!-- Age Confirmation -->
+            <div class="age-confirmation">
+                <label class="custom-checkbox">
+                    <input type="checkbox" id="age-checkbox">
+                    <span class="checkmark"></span>
+                    <span class="label-text">
+                        I confirm I am <strong id="legal-age">18</strong> years or older and legally
+                        allowed to view gambling content in my jurisdiction
+                    </span>
+                </label>
+            </div>
+
+            <!-- Continue Button -->
+            <button id="continue-btn" class="continue-btn" disabled>
+                <span class="btn-text">Continue</span>
+                <svg class="btn-arrow" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+            </button>
+
+            <!-- Responsible Gambling Notice -->
+            <div class="responsible-gambling">
+                <p class="warning-text">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                    Gambling can be addictive. Please play responsibly.
+                </p>
+                <p id="helpline" class="helpline">
+                    Need help? Call <strong>1-800-522-4700</strong>
+                </p>
+            </div>
+
+            <!-- Error Message -->
+            <div id="error-message" class="error-message" style="display: none;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="15" y1="9" x2="9" y2="15"></line>
+                    <line x1="9" y1="9" x2="15" y2="15"></line>
+                </svg>
+                <span id="error-text">Invalid destination URL</span>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="gate-footer">
+            <p>This page verifies you meet the legal requirements to view gambling-related content.</p>
+        </div>
+    </div>
+
+    <!-- Gate Logic -->
+    <script src="js/gate.js"></script>
+</body>
+</html>
