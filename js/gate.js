@@ -88,22 +88,24 @@ let destinationUrl = null;
 let currentGeo = 'US';
 
 // ============================================
-// DOM ELEMENTS
+// DOM ELEMENTS (initialized after DOM loads)
 // ============================================
 
-const continueBtn = document.getElementById('continue-btn');
-const ageCheckbox = document.getElementById('age-checkbox');
-const legalAgeEl = document.getElementById('legal-age');
-const helplineEl = document.getElementById('helpline');
-const errorMessageEl = document.getElementById('error-message');
-const errorTextEl = document.getElementById('error-text');
-const captchaStatusEl = document.getElementById('captcha-status');
+let continueBtn, ageCheckbox, legalAgeEl, helplineEl, errorMessageEl, errorTextEl, captchaStatusEl;
 
 // ============================================
 // INITIALIZATION
 // ============================================
 
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize DOM references
+    continueBtn = document.getElementById('continue-btn');
+    ageCheckbox = document.getElementById('age-checkbox');
+    legalAgeEl = document.getElementById('legal-age');
+    helplineEl = document.getElementById('helpline');
+    errorMessageEl = document.getElementById('error-message');
+    errorTextEl = document.getElementById('error-text');
+    captchaStatusEl = document.getElementById('captcha-status');
     // Parse URL parameters
     const params = new URLSearchParams(window.location.search);
     const encodedDest = params.get('dest');
