@@ -250,8 +250,23 @@ window.handleContinue = function() {
 
     console.log('Redirecting to:', destinationUrl);
 
-    // Redirect immediately
-    window.location.href = destinationUrl;
+    // Try multiple redirect methods
+    try {
+        // Method 1: location.replace (no back button)
+        window.location.replace(destinationUrl);
+    } catch (e) {
+        console.error('Replace failed:', e);
+        try {
+            // Method 2: Direct assignment
+            window.location = destinationUrl;
+        } catch (e2) {
+            console.error('Location assign failed:', e2);
+            // Method 3: Create link and click it
+            const link = document.createElement('a');
+            link.href = destinationUrl;
+            link.click();
+        }
+    }
 }
 
 /**
