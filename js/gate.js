@@ -146,7 +146,16 @@ document.addEventListener('DOMContentLoaded', function() {
         updateButtonState();
     });
 
-    continueBtn.addEventListener('click', handleContinue);
+    // Prevent clicks on disabled link
+    continueBtn.addEventListener('click', function(e) {
+        if (!captchaPassed || !ageConfirmed || !destinationUrl) {
+            e.preventDefault();
+            console.log('Link click blocked - validation not complete');
+            return false;
+        }
+        // Let the native link behavior handle navigation
+        console.log('Navigating via native link to:', this.href);
+    });
 });
 
 // ============================================
@@ -224,80 +233,21 @@ window.onTurnstileExpired = function() {
 };
 
 /**
- * Update continue button enabled state
+ * Update continue link state
+ * The continue button is now an <a> tag - we enable it by setting href and removing disabled class
  */
 function updateButtonState() {
     const canContinue = captchaPassed && ageConfirmed && destinationUrl;
-    continueBtn.disabled = !canContinue;
-}
 
-/**
- * Handle continue button click
- */
-let isRedirecting = false;
-window.handleContinue = function() {
-    console.log('handleContinue called', { captchaPassed, ageConfirmed, destinationUrl, isRedirecting });
-
-    // Prevent double-firing
-    if (isRedirecting) {
-        console.log('Already redirecting, ignoring');
-        return;
-    }
-
-    if (!captchaPassed || !ageConfirmed || !destinationUrl) {
-        console.log('Conditions not met, returning');
-        return;
-    }
-
-    isRedirecting = true;
-
-    // Add loading state
-    if (continueBtn) {
-        continueBtn.classList.add('loading');
-        continueBtn.disabled = true;
-    }
-
-    console.log('Redirecting to:', destinationUrl);
-
-    // Try multiple redirect methods with error catching
-    setTimeout(function() {
-        try {
-            // Method 1: Direct assignment (most common)
-            window.location.href = destinationUrl;
-        } catch (e1) {
-            console.error('location.href failed:', e1);
-            try {
-                // Method 2: Top frame location
-                window.top.location.href = destinationUrl;
-            } catch (e2) {
-                console.error('top.location failed:', e2);
-                // Method 3: Show manual link as fallback
-                showManualLink(destinationUrl);
-            }
-        }
-
-        // If still here after 500ms, show manual link
-        setTimeout(function() {
-            if (!document.hidden) {
-                console.log('Redirect did not occur, showing manual link');
-                showManualLink(destinationUrl);
-            }
-        }, 500);
-    }, 100);
-}
-
-/**
- * Show a manual link if automatic redirect fails
- */
-function showManualLink(url) {
-    var container = document.querySelector('.gate-card');
-    if (container && !document.getElementById('manual-link')) {
-        var div = document.createElement('div');
-        div.id = 'manual-link';
-        div.style.cssText = 'margin-top: 20px; padding: 15px; background: #2a2a4a; border-radius: 8px; text-align: center;';
-        div.innerHTML = '<p style="color: #fff; margin-bottom: 10px;">Click the link below to continue:</p>' +
-            '<a href="' + url + '" style="color: #d4af37; font-size: 16px; word-break: break-all;">' + url + '</a>';
-        container.appendChild(div);
+    if (canContinue) {
+        // Enable: set href and remove disabled class
+        continueBtn.href = destinationUrl;
+        continueBtn.classList.remove('disabled');
+        console.log('Continue link enabled:', destinationUrl);
+    } else {
+        // Disable: remove href and add disabled class
+        continueBtn.removeAttribute('href');
+        continueBtn.classList.add('disabled');
     }
 }
 

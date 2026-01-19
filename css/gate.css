@@ -185,7 +185,7 @@ body {
     color: #d4af37;
 }
 
-/* Continue Button */
+/* Continue Button (styled as link) */
 .continue-btn {
     width: 100%;
     padding: 16px 24px;
@@ -202,21 +202,23 @@ body {
     gap: 8px;
     transition: all 0.3s ease;
     box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+    text-decoration: none;
 }
 
-.continue-btn:hover:not(:disabled) {
+.continue-btn:hover:not(.disabled) {
     transform: translateY(-2px);
     box-shadow: 0 6px 24px rgba(212, 175, 55, 0.5);
 }
 
-.continue-btn:disabled {
+.continue-btn.disabled {
     background: rgba(255, 255, 255, 0.1);
     color: rgba(255, 255, 255, 0.3);
     cursor: not-allowed;
     box-shadow: none;
+    pointer-events: none;
 }
 
-.continue-btn:disabled .btn-arrow {
+.continue-btn.disabled .btn-arrow {
     stroke: rgba(255, 255, 255, 0.3);
 }
 
@@ -224,7 +226,7 @@ body {
     transition: transform 0.3s ease;
 }
 
-.continue-btn:hover:not(:disabled) .btn-arrow {
+.continue-btn:hover:not(.disabled) .btn-arrow {
     transform: translateX(4px);
 }
 
