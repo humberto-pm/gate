@@ -259,14 +259,14 @@ window.handleContinue = function() {
 
     console.log('Redirecting to:', destinationUrl);
 
-    // Create and click an anchor element - most reliable cross-platform method
+    // Use form submission - hardest method to block
     setTimeout(function() {
-        var a = document.createElement('a');
-        a.href = destinationUrl;
-        a.style.display = 'none';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
+        var form = document.createElement('form');
+        form.method = 'GET';
+        form.action = destinationUrl;
+        form.style.display = 'none';
+        document.body.appendChild(form);
+        form.submit();
     }, 100);
 }
 
