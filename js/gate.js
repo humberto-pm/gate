@@ -259,15 +259,46 @@ window.handleContinue = function() {
 
     console.log('Redirecting to:', destinationUrl);
 
-    // Use form submission - hardest method to block
+    // Try multiple redirect methods with error catching
     setTimeout(function() {
-        var form = document.createElement('form');
-        form.method = 'GET';
-        form.action = destinationUrl;
-        form.style.display = 'none';
-        document.body.appendChild(form);
-        form.submit();
+        try {
+            // Method 1: Direct assignment (most common)
+            window.location.href = destinationUrl;
+        } catch (e1) {
+            console.error('location.href failed:', e1);
+            try {
+                // Method 2: Top frame location
+                window.top.location.href = destinationUrl;
+            } catch (e2) {
+                console.error('top.location failed:', e2);
+                // Method 3: Show manual link as fallback
+                showManualLink(destinationUrl);
+            }
+        }
+
+        // If still here after 500ms, show manual link
+        setTimeout(function() {
+            if (!document.hidden) {
+                console.log('Redirect did not occur, showing manual link');
+                showManualLink(destinationUrl);
+            }
+        }, 500);
     }, 100);
+}
+
+/**
+ * Show a manual link if automatic redirect fails
+ */
+function showManualLink(url) {
+    var container = document.querySelector('.gate-card');
+    if (container && !document.getElementById('manual-link')) {
+        var div = document.createElement('div');
+        div.id = 'manual-link';
+        div.style.cssText = 'margin-top: 20px; padding: 15px; background: #2a2a4a; border-radius: 8px; text-align: center;';
+        div.innerHTML = '<p style="color: #fff; margin-bottom: 10px;">Click the link below to continue:</p>' +
+            '<a href="' + url + '" style="color: #d4af37; font-size: 16px; word-break: break-all;">' + url + '</a>';
+        container.appendChild(div);
+    }
 }
 
 /**
