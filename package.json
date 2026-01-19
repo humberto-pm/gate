@@ -1,0 +1,8 @@
+{
+  "name": "gate",
+  "version": "1.0.0",
+  "description": "Affiliate age verification gate",
+  "scripts": {
+    "build": "echo 'No build required - static site'"
+  }
+}
