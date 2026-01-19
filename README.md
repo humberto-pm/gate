@@ -6,8 +6,9 @@ Age verification + captcha interstitial for affiliate links. Sits between Reddit
 
 ## Current Deployment
 
-- **Live URL:** https://humberto-pm.github.io/gate/
+- **Live URL:** https://gate-e7uxs.kinsta.page/
 - **GitHub Repo:** https://github.com/humberto-pm/gate
+- **Hosting:** Sevalla (Kinsta) with CDN and edge caching
 - **Turnstile Site Key:** `0x4AAAAAACNCNb3XGAXXWox4`
 
 ## Cloudflare Turnstile
@@ -33,7 +34,7 @@ generateGateUrl('https://chainwager.net/go/playojo-fre-spi-en-ca/?!86aeepf52', '
 
 ```javascript
 function createGateLink(affiliateUrl, geo = 'US') {
-    const baseUrl = 'https://humberto-pm.github.io/gate/';
+    const baseUrl = 'https://gate-e7uxs.kinsta.page/';
     const encoded = btoa(affiliateUrl);
     return `${baseUrl}?dest=${encoded}&geo=${geo}`;
 }
@@ -48,7 +49,7 @@ createGateLink('https://spintoday.net/go/betmgm/', 'US');
 import base64
 
 def create_gate_link(affiliate_url, geo='US'):
-    base_url = 'https://humberto-pm.github.io/gate/'
+    base_url = 'https://gate-e7uxs.kinsta.page/'
     encoded = base64.b64encode(affiliate_url.encode()).decode()
     return f'{base_url}?dest={encoded}&geo={geo}'
 
