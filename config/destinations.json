@@ -18,5 +18,20 @@
     "url": "https://site.gotoplayojo.com/index.php?aname=leanbackplayer_ca&zone_id=bbb100spins_enroc&dyn_id=86advb8mc",
     "geo": "CA",
     "name": "PlayOjo CA"
+  },
+  "dap1": {
+    "url": "https://dap57.com/_RJbGc4ELwXj94ehXLkOgwWNd7ZgqdRLk/1/?payload=86aen0amk",
+    "geo": "US",
+    "name": "DAP57 US"
+  },
+  "bsz1": {
+    "url": "https://bzstarz1.com/b727ce835?zone_id=86aen0amk",
+    "geo": "US",
+    "name": "BitStarz US"
+  },
+  "wild1": {
+    "url": "https://wildpartners.app/a84c81032?var=86aen0amk",
+    "geo": "US",
+    "name": "Wild Partners US"
   }
 }
