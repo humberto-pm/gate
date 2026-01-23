@@ -195,7 +195,8 @@ document.addEventListener('DOMContentLoaded', async function() {
  * Load destinations config file
  */
 async function loadDestinationsConfig() {
-    const response = await fetch('config/destinations.json');
+    // Add cache-busting to avoid CDN stale data
+    const response = await fetch('config/destinations.json?v=' + Date.now());
     if (!response.ok) {
         throw new Error('Failed to load destinations config');
     }
