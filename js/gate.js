@@ -33,6 +33,8 @@ const ALLOWED_DOMAINS = [
     'dap57.com',
     'bzstarz1.com',
     'wildpartners.app',
+    'linkshter.com',
+    'kaaslink.me',
     // Add more affiliate/tracking domains as needed
 ];
 
