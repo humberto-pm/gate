@@ -48,5 +48,25 @@
     "url": "https://linkshter.com/18/?affid=43804&campaign=86aeh23j1",
     "geo": "UK",
     "name": "Kingdom Casino UK"
+  },
+  "ign1": {
+    "url": "https://dap57.com/_RJbGc4ELwXj94ehXLkOgwWNd7ZgqdRLk/1/?payload=86ad9t7qx",
+    "geo": "US",
+    "name": "Ignition US"
+  },
+  "bsz2": {
+    "url": "https://bzstarz1.com/b727ce835?zone_id=86ad9t7qx",
+    "geo": "US",
+    "name": "BitStarz US v2"
+  },
+  "bov1": {
+    "url": "https://dap57.com/_RJbGc4ELwXhX-RfOdmmA8WNd7ZgqdRLk/1/?payload=86ad9t7qx",
+    "geo": "US",
+    "name": "Bovada US"
+  },
+  "wild2": {
+    "url": "https://wildpartners.app/a84c81032?var=86ad9t7qx",
+    "geo": "US",
+    "name": "Wild.io US"
   }
 }
