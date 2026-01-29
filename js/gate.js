@@ -30,6 +30,9 @@ const ALLOWED_DOMAINS = [
     'jackpotcitycasino.com',
     'spincasino.com',
     'gotoplayojo.com',
+    'dap57.com',
+    'bzstarz1.com',
+    'wildpartners.app',
     // Add more affiliate/tracking domains as needed
 ];
 
