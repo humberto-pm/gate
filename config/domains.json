@@ -6,7 +6,12 @@
   },
   "luckyroll33.com": {
     "name": "LuckyRoll33",
-    "turnstileSiteKey": "TO_BE_CONFIGURED",
+    "turnstileSiteKey": "0x4AAAAAACNCNb3XGAXXWox4",
     "theme": "luckyroll"
+  },
+  "luckzone33.com": {
+    "name": "LuckZone33",
+    "turnstileSiteKey": "0x4AAAAAACNCNb3XGAXXWox4",
+    "theme": "luckzone"
   }
 }
