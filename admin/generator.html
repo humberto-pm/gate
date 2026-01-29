@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Gate Link Generator</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%);
+            color: #ffffff;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 8px;
+            color: #d4af37;
+        }
+        .subtitle {
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 32px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: rgba(255,255,255,0.8);
+        }
+        input, select {
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 14px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 8px;
+            color: #ffffff;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        input:focus, select:focus {
+            border-color: #d4af37;
+        }
+        input::placeholder {
+            color: rgba(255,255,255,0.4);
+        }
+        select option {
+            background: #1a1a2e;
+            color: #ffffff;
+        }
+        .row {
+            display: flex;
+            gap: 16px;
+        }
+        .row .form-group {
+            flex: 1;
+        }
+        button {
+            width: 100%;
+            padding: 14px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #1a1a2e;
+            background: linear-gradient(135deg, #d4af37 0%, #f4d03f 50%, #d4af37 100%);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.4);
+        }
+        button:active {
+            transform: translateY(0);
+        }
+        .output-section {
+            margin-top: 32px;
+            padding: 20px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            display: none;
+        }
+        .output-section.visible {
+            display: block;
+        }
+        .output-label {
+            font-size: 12px;
+            color: rgba(255,255,255,0.5);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+        .output-url {
+            padding: 16px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 8px;
+            word-break: break-all;
+            font-family: monospace;
+            font-size: 13px;
+            color: #4ade80;
+            margin-bottom: 16px;
+        }
+        .copy-btn {
+            width: auto;
+            padding: 10px 20px;
+            font-size: 14px;
+            background: rgba(255,255,255,0.1);
+            color: #ffffff;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .copy-btn:hover {
+            background: rgba(255,255,255,0.15);
+            box-shadow: none;
+        }
+        .copy-btn.copied {
+            background: rgba(74, 222, 128, 0.2);
+            border-color: #4ade80;
+            color: #4ade80;
+        }
+        .help-text {
+            font-size: 12px;
+            color: rgba(255,255,255,0.4);
+            margin-top: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Gate Link Generator</h1>
+        <p class="subtitle">Generate age verification interstitial URLs</p>
+
+        <form id="generator-form">
+            <div class="form-group">
+                <label for="affiliate-url">Affiliate URL</label>
+                <input type="url" id="affiliate-url" placeholder="https://affiliate.com/offer?ref=123" required>
+                <div class="help-text">The destination URL users will be redirected to after verification</div>
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+                    <label for="gate-domain">Gate Domain</label>
+                    <select id="gate-domain">
+                        <option value="playzones.net">PlayZones (playzones.net)</option>
+                        <option value="luckyroll33.com">LuckyRoll33 (luckyroll33.com)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="geo">GEO</label>
+                    <select id="geo">
+                        <option value="US">US (21+)</option>
+                        <option value="CA">CA (19+)</option>
+                        <option value="UK">UK (18+)</option>
+                        <option value="AU">AU (18+)</option>
+                        <option value="DE">DE (18+)</option>
+                        <option value="AT">AT (18+)</option>
+                        <option value="NZ">NZ (18+)</option>
+                        <option value="IE">IE (18+)</option>
+                    </select>
+                </div>
+            </div>
+
+            <button type="submit">Generate Link</button>
+        </form>
+
+        <div id="output-section" class="output-section">
+            <div class="output-label">Generated Gate URL</div>
+            <div id="output-url" class="output-url"></div>
+            <button type="button" id="copy-btn" class="copy-btn">Copy to Clipboard</button>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('generator-form');
+        const outputSection = document.getElementById('output-section');
+        const outputUrl = document.getElementById('output-url');
+        const copyBtn = document.getElementById('copy-btn');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const affiliateUrl = document.getElementById('affiliate-url').value;
+            const gateDomain = document.getElementById('gate-domain').value;
+            const geo = document.getElementById('geo').value;
+
+            // Base64 encode the affiliate URL
+            const encoded = btoa(affiliateUrl);
+            const gateUrl = `https://${gateDomain}/?dest=${encoded}&geo=${geo}`;
+
+            // Show output
+            outputUrl.textContent = gateUrl;
+            outputSection.classList.add('visible');
+            copyBtn.textContent = 'Copy to Clipboard';
+            copyBtn.classList.remove('copied');
+        });
+
+        copyBtn.addEventListener('click', async function() {
+            const url = outputUrl.textContent;
+
+            try {
+                await navigator.clipboard.writeText(url);
+                copyBtn.textContent = 'Copied!';
+                copyBtn.classList.add('copied');
+
+                setTimeout(() => {
+                    copyBtn.textContent = 'Copy to Clipboard';
+                    copyBtn.classList.remove('copied');
+                }, 2000);
+            } catch (err) {
+                // Fallback for older browsers
+                const textarea = document.createElement('textarea');
+                textarea.value = url;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+
+                copyBtn.textContent = 'Copied!';
+                copyBtn.classList.add('copied');
+            }
+        });
+    </script>
+</body>
+</html>

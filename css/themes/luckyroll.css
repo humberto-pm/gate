@@ -1,0 +1,68 @@
+/* ============================================
+   LUCKYROLL THEME - Deep Crimson & Silver
+   Casino dice/lucky theme
+   ============================================ */
+
+/* Override background */
+body {
+    background: linear-gradient(135deg, #1a0a0a 0%, #2d1515 50%, #0f0505 100%);
+}
+
+/* Shield icon - Silver/Platinum gradient */
+.shield-icon {
+    background: linear-gradient(135deg, #c0c0c0 0%, #e8e8e8 50%, #a0a0a0 100%);
+    box-shadow: 0 4px 20px rgba(192, 192, 192, 0.4);
+}
+
+.shield-icon svg {
+    color: #1a0a0a;
+}
+
+/* Accent color - Crimson Red */
+.label-text strong {
+    color: #dc2626;
+}
+
+.helpline strong {
+    color: #dc2626;
+}
+
+/* Checkbox checked state - Crimson */
+.custom-checkbox input:checked ~ .checkmark {
+    background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+    border-color: #dc2626;
+}
+
+.custom-checkbox:hover .checkmark {
+    border-color: rgba(220, 38, 38, 0.5);
+}
+
+.checkmark::after {
+    border-color: #ffffff;
+}
+
+/* Continue button - Crimson gradient */
+.continue-btn {
+    background: linear-gradient(135deg, #dc2626 0%, #ef4444 50%, #dc2626 100%);
+    color: #ffffff;
+    box-shadow: 0 4px 20px rgba(220, 38, 38, 0.3);
+}
+
+.continue-btn:hover:not(.disabled) {
+    box-shadow: 0 6px 24px rgba(220, 38, 38, 0.5);
+}
+
+/* Arrow color for crimson button */
+.btn-arrow {
+    stroke: #ffffff;
+}
+
+/* Card border subtle red tint */
+.gate-card {
+    border: 1px solid rgba(220, 38, 38, 0.15);
+}
+
+/* Warning icon - keep amber but lighter */
+.warning-text svg {
+    stroke: #fbbf24;
+}

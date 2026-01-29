@@ -11,9 +11,11 @@
 
     <!-- Custom Styles -->
     <link rel="stylesheet" href="css/gate.css">
+    <!-- Theme CSS (loaded dynamically based on domain) -->
+    <link rel="stylesheet" id="theme-css" href="">
 
-    <!-- Cloudflare Turnstile -->
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <!-- Cloudflare Turnstile (explicit render mode for dynamic initialization) -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
 </head>
 <body>
     <div class="gate-container">
@@ -30,13 +32,9 @@
                 <p class="subtitle">Please complete the verification below to continue</p>
             </div>
 
-            <!-- Captcha Widget -->
+            <!-- Captcha Widget (initialized dynamically based on domain config) -->
             <div class="captcha-container">
-                <div class="cf-turnstile"
-                     data-sitekey="0x4AAAAAACNCNb3XGAXXWox4"
-                     data-callback="onTurnstileSuccess"
-                     data-theme="dark">
-                </div>
+                <div id="turnstile-container"></div>
                 <div id="captcha-status" class="status-indicator">
                     <span class="status-pending">Verifying...</span>
                 </div>

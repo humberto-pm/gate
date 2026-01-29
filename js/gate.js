@@ -6,7 +6,7 @@
  *   - Base64:   https://gate.example.com/?dest=BASE64_URL&geo=US (backwards compatible)
  *
  * Configuration:
- * 1. Add your Turnstile site key to index.html (data-sitekey attribute)
+ * 1. Domain config in config/domains.json (Turnstile keys + themes)
  * 2. For short IDs: Add destinations to config/destinations.json
  * 3. For base64: Update ALLOWED_DOMAINS below
  */
@@ -92,6 +92,7 @@ let captchaPassed = false;
 let ageConfirmed = false;
 let destinationUrl = null;
 let currentGeo = 'US';
+let domainConfig = null;
 
 // ============================================
 // DOM ELEMENTS (initialized after DOM loads)
@@ -112,6 +113,17 @@ document.addEventListener('DOMContentLoaded', async function() {
     errorMessageEl = document.getElementById('error-message');
     errorTextEl = document.getElementById('error-text');
     captchaStatusEl = document.getElementById('captcha-status');
+
+    // Load domain configuration and apply theme
+    try {
+        domainConfig = await loadDomainConfig();
+        applyTheme(domainConfig.theme);
+        initializeTurnstile(domainConfig.turnstileSiteKey);
+    } catch (e) {
+        console.error('Domain config error:', e);
+        showError('Failed to load page configuration');
+        return;
+    }
 
     // Parse URL parameters
     const params = new URLSearchParams(window.location.search);
@@ -201,6 +213,80 @@ async function loadDestinationsConfig() {
         throw new Error('Failed to load destinations config');
     }
     return response.json();
+}
+
+/**
+ * Load domain configuration based on current hostname
+ */
+async function loadDomainConfig() {
+    const response = await fetch('config/domains.json?v=' + Date.now());
+    if (!response.ok) {
+        throw new Error('Failed to load domain config');
+    }
+    const domains = await response.json();
+
+    // Get current hostname (remove www. prefix)
+    const hostname = window.location.hostname.replace(/^www\./, '');
+
+    // Look up domain config, fall back to first domain if not found (for localhost testing)
+    let config = domains[hostname];
+    if (!config) {
+        // Fallback for localhost/development
+        const firstDomain = Object.keys(domains)[0];
+        config = domains[firstDomain];
+        console.log('Domain not found, using fallback:', firstDomain);
+    }
+
+    console.log('Domain config loaded for:', hostname, config);
+    return config;
+}
+
+/**
+ * Apply theme CSS based on domain configuration
+ */
+function applyTheme(theme) {
+    const themeCss = document.getElementById('theme-css');
+    if (themeCss && theme && theme !== 'default') {
+        themeCss.href = `css/themes/${theme}.css?v=${Date.now()}`;
+        console.log('Applied theme:', theme);
+    }
+}
+
+/**
+ * Initialize Turnstile with domain-specific site key
+ */
+function initializeTurnstile(siteKey) {
+    if (!siteKey || siteKey === 'TO_BE_CONFIGURED') {
+        console.warn('Turnstile site key not configured');
+        if (captchaStatusEl) {
+            captchaStatusEl.innerHTML = '<span class="status-pending">Captcha not configured</span>';
+        }
+        return;
+    }
+
+    const container = document.getElementById('turnstile-container');
+    if (!container) {
+        console.error('Turnstile container not found');
+        return;
+    }
+
+    // Wait for Turnstile API to load
+    if (typeof turnstile === 'undefined') {
+        console.log('Waiting for Turnstile API...');
+        setTimeout(() => initializeTurnstile(siteKey), 100);
+        return;
+    }
+
+    // Render Turnstile widget
+    turnstile.render(container, {
+        sitekey: siteKey,
+        theme: 'dark',
+        callback: onTurnstileSuccess,
+        'error-callback': onTurnstileError,
+        'expired-callback': onTurnstileExpired
+    });
+
+    console.log('Turnstile initialized with key:', siteKey.substring(0, 10) + '...');
 }
 
 // ============================================

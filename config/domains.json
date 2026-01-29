@@ -1,0 +1,12 @@
+{
+  "playzones.net": {
+    "name": "PlayZones",
+    "turnstileSiteKey": "0x4AAAAAACNCNb3XGAXXWox4",
+    "theme": "default"
+  },
+  "luckyroll33.com": {
+    "name": "LuckyRoll33",
+    "turnstileSiteKey": "TO_BE_CONFIGURED",
+    "theme": "luckyroll"
+  }
+}
