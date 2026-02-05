@@ -35,6 +35,8 @@ const ALLOWED_DOMAINS = [
     'wildpartners.app',
     'linkshter.com',
     'kaaslink.me',
+    'fynkelto.com',
+    'bettraff.com',
     // Add more affiliate/tracking domains as needed
 ];
 
