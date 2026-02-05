@@ -13,5 +13,10 @@
     "name": "33LuckZone",
     "turnstileSiteKey": "0x4AAAAAACNCNb3XGAXXWox4",
     "theme": "luckzone"
+  },
+  "austria-spins.com": {
+    "name": "Austria Spins",
+    "turnstileSiteKey": "0x4AAAAAACNCNb3XGAXXWox4",
+    "theme": "default"
   }
 }
