@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     // Parse URL parameters
     const params = new URLSearchParams(window.location.search);
-    const shortId = params.get('id');
+    const shortId = params.get('id') || params.get('pn');
     const encodedDest = params.get('dest');
 
     // Method 1: Short ID lookup (preferred)
